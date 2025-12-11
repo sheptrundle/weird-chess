@@ -1,7 +1,8 @@
 package GameSetup.Pieces;
 import GameSetup.ChessBoard;
-import GameSetup.Color;
-import GameSetup.Piece;
+import GameSetup.Pieces.Features.Color;
+import GameSetup.Pieces.Features.MoveLogic;
+import GameSetup.Pieces.Features.PieceType;
 import GameSetup.Position;
 
 import java.util.ArrayList;
@@ -21,15 +22,22 @@ public class Knight implements Piece {
     public Position getPosition() {return position;}
     public void setPosition(Position position) {this.position = position;}
     public Color getColor() {return color;}
+    public boolean exists() {return true;}
+    public PieceType getType() {return PieceType.KNIGHT;}
 
+    // Return a list of all the valid moves from knight at its current position
     public List<Position> getValidMoves() {
+        MoveLogic moveLogic = new MoveLogic();
+
         int[] dx = { 1,  2,  2,  1, -1, -2, -2, -1 };
         int[] dy = { 2,  1, -1, -2, -2, -1,  1,  2 };
         List<Position> validMoves = new ArrayList<>();
 
         for (int i = 0; i < 8; i++) {
             Position newPos = new Position(position.getRow() + dx[i], position.getColumn() + dy[i]);
-            if (newPos.isOnBoard()) validMoves.add(newPos);
+            if (moveLogic.isValidMove(this, board, newPos)) {
+                validMoves.add(newPos);
+            }
         }
 
         return validMoves;

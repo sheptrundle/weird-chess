@@ -19,4 +19,8 @@ public class Position {
     public boolean isOnBoard(){
         return row > -1 && row < 8 && column > -1 && column < 8;
     }
+
+    public String toString() {
+        return "(" + row + ", " + column + ")";
+    }
 }

@@ -1,7 +1,7 @@
 package GameSetup.Pieces;
 import GameSetup.ChessBoard;
-import GameSetup.Color;
-import GameSetup.Piece;
+import GameSetup.Pieces.Features.Color;
+import GameSetup.Pieces.Features.PieceType;
 import GameSetup.Position;
 
 import java.util.ArrayList;
@@ -21,6 +21,8 @@ public class Pawn implements Piece {
     public Position getPosition() {return position;}
     public void setPosition(Position position) {this.position = position;}
     public Color getColor() {return color;}
+    public boolean exists() {return true;}
+    public PieceType getType() {return PieceType.PAWN;}
 
     public List<Position> getValidMoves() {
         List<Position> validMoves = new ArrayList<>();
