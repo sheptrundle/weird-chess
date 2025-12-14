@@ -11,15 +11,21 @@ public class King implements Piece {
     Position position;
     ChessBoard board;
     Color color;
+    boolean hasMoved;
 
     public King(Position position, ChessBoard board, Color color) {
         this.position = position;
         this.board = board;
         this.color = color;
+        hasMoved = false;
+
     }
 
     public Position getPosition() {return position;}
-    public void setPosition(Position position) {this.position = position;}
+    public void setPosition(Position position) {
+        this.position = position;
+        hasMoved = true;
+    }
     public Color getColor() {return color;}
     public boolean exists() {return true;}
     public PieceType getType() {return PieceType.KING;}
@@ -35,5 +41,9 @@ public class King implements Piece {
         }
 
         return validMoves;
+    }
+
+    public boolean hasMoved() {
+        return hasMoved;
     }
 }
