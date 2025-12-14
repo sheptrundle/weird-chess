@@ -1,6 +1,7 @@
 package Game.Pieces;
 import Game.ChessBoard;
 import Game.Pieces.Features.Color;
+import Game.Pieces.Features.MoveLogic;
 import Game.Pieces.Features.PieceType;
 import Game.Position;
 
@@ -30,15 +31,40 @@ public class Pawn implements Piece {
     public PieceType getType() {return PieceType.PAWN;}
     public boolean hasMoved() {return hasMoved;}
 
+    public List<Position> diagonalAttacks() {
+        List<Position> diagonalAttacks = new ArrayList<>();
+        int currRow = position.getRow();
+        int currCol = position.getColumn();
+        Position leftDiag = new Position(currRow - 1, currCol + 1);
+        Position rightDiag = new Position(currRow + 1, currCol + 1);
+
+        // Check left diagonal
+        if (board.getPieceAt(leftDiag).exists() && board.getPieceAt(leftDiag).getColor() != color) {
+            diagonalAttacks.add(leftDiag);
+        }
+        // Check right diagonal
+        if (board.getPieceAt(rightDiag).exists() && board.getPieceAt(rightDiag).getColor() != color) {
+            diagonalAttacks.add(rightDiag);
+        }
+        return diagonalAttacks;
+    }
+
     public List<Position> getValidMoves() {
         List<Position> validMoves = new ArrayList<>();
+        MoveLogic moveLogic = new MoveLogic();
 
         // On first row, can go up 1 or 2 spaces
-        if (!hasMoved) {
-
+        for (int i = 1; i <= 2; i++) {
+            Position to = new Position(position.getRow(), position.getColumn() + i);
+            if (moveLogic.isValidMove(this, board, to)) {
+                validMoves.add(to);
+            }
+            // Only allow 2 space move if Pawn hasn't moved yet
+            if (hasMoved) {break;}
         }
+        // Add diagonal attacks
+        validMoves.addAll(diagonalAttacks());
 
-        // Implement this algorithm
-        return null;
+        return validMoves;
     }
 }

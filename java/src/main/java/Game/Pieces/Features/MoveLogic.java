@@ -23,4 +23,8 @@ public class MoveLogic {
         // Cannot move to position of own teams piece, or anything off board
         return false;
     }
+
+    // Todo: implement these
+    public void shortCastle(Piece king, Piece rook) {}
+    public void longCastle(Piece king, Piece rook) {}
 }
