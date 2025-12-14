@@ -9,6 +9,8 @@
     </content>
     <orderEntry type="jdk" jdkName="22" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-fxml:mac-aarch64:23.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:23.0.1" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:mac-aarch64:23.0.1" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:23.0.1" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:mac-aarch64:23.0.1" level="project" />
