@@ -11,24 +11,30 @@ public class Pawn implements Piece {
     Position position;
     ChessBoard board;
     Color color;
+    boolean hasMoved;
 
     public Pawn(Position position, ChessBoard board, Color color) {
         this.position = position;
         this.board = board;
         this.color = color;
+        hasMoved = false;
     }
 
     public Position getPosition() {return position;}
-    public void setPosition(Position position) {this.position = position;}
+    public void setPosition(Position position) {
+        this.position = position;
+        hasMoved = false;
+    }
     public Color getColor() {return color;}
     public boolean exists() {return true;}
     public PieceType getType() {return PieceType.PAWN;}
+    public boolean hasMoved() {return hasMoved;}
 
     public List<Position> getValidMoves() {
         List<Position> validMoves = new ArrayList<>();
 
         // On first row, can go up 1 or 2 spaces
-        if (position.getRow() == 1) {
+        if (!hasMoved) {
 
         }
 

@@ -29,6 +29,7 @@ public class King implements Piece {
     public Color getColor() {return color;}
     public boolean exists() {return true;}
     public PieceType getType() {return PieceType.KING;}
+    public boolean hasMoved() {return hasMoved;}
 
     public List<Position> getValidMoves() {
         int[] dx = { 1,  1,  1,  0, 0, -1, -1, -1 };
@@ -36,14 +37,10 @@ public class King implements Piece {
         List<Position> validMoves = new ArrayList<>();
 
         for (int i = 0; i < 8; i++) {
-            Position newPos = new Position(position.getRow() + dx[i], position.getColumn() + dx[i]);
+            Position newPos = new Position(position.getRow() + dx[i], position.getColumn() + dy[i]);
             if (newPos.isOnBoard()) validMoves.add(newPos);
         }
 
         return validMoves;
-    }
-
-    public boolean hasMoved() {
-        return hasMoved;
     }
 }
