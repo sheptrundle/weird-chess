@@ -6,12 +6,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?xml version="1.0" encoding="UTF-8"?>
-
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="Controllers.StartScreenController"
            prefWidth="1080" prefHeight="720"
-           style="-fx-background-color: #1C1C1C;"> <!-- optional background color -->
+           style="-fx-background-color: white;">
 
     <!-- Start Game Button -->
     <Button fx:id="startGameButton"
@@ -19,6 +17,6 @@
             prefWidth="150"
             prefHeight="50"
             onAction="#handleStartGame"
-            style="-fx-background-color: #7A3A09; -fx-text-fill: white; -fx-font-size: 16;" />
+            style="-fx-background-color: black; -fx-text-fill: white; -fx-font-size: 16;" />
 
 </StackPane>
