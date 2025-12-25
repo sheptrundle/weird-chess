@@ -7,7 +7,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 public class RunWeirdChess extends Application {
+
     public static void main(String[] args) throws IOException {
         launch(args);
     }
@@ -22,5 +24,7 @@ public class RunWeirdChess extends Application {
         stage.setTitle("Eastern Roads");
         stage.setScene(scene);
         stage.show();
+
+
     }
 }

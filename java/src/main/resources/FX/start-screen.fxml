@@ -8,7 +8,7 @@
 
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="Controllers.StartScreenController"
-           prefWidth="1080" prefHeight="720"
+           prefWidth="800" prefHeight="800"
            style="-fx-background-color: white;">
 
     <!-- Start Game Button -->
@@ -18,5 +18,11 @@
             prefHeight="50"
             onAction="#handleStartGame"
             style="-fx-background-color: black; -fx-text-fill: white; -fx-font-size: 16;" />
+
+    <Label fx:id="errorMessage"
+           layoutX="500"
+           layoutY="10"
+           visible="false"
+           style= "-fx-text-fill: #4D2506; -fx-font-size: 18;" />
 
 </StackPane>
