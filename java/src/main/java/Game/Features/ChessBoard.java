@@ -73,7 +73,7 @@ public class ChessBoard {
         createAndPlace(Color.BLACK, "king", 7, 4);
 
         // Queens
-        createAndPlace(Color.BLACK, "queen", 0, 3);
+        createAndPlace(Color.WHITE, "queen", 0, 3);
         createAndPlace(Color.BLACK, "queen", 7, 3);
 
         // Knights
@@ -90,8 +90,8 @@ public class ChessBoard {
 
         // Bishops
         createAndPlace(Color.WHITE, "bishop", 0, 2);
-        createAndPlace(Color.BLACK, "bishop", 0, 5);
-        createAndPlace(Color.WHITE, "bishop", 7, 2);
+        createAndPlace(Color.WHITE, "bishop", 0, 5);
+        createAndPlace(Color.BLACK, "bishop", 7, 2);
         createAndPlace(Color.BLACK, "bishop", 7, 5);
 
         // Null Pieces in Middle
