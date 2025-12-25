@@ -43,7 +43,9 @@ public class ChessGameController {
                 else {square.setStyle("-fx-background-color: #b58863");}
 
                 squares[row][col] = square;
-                boardGrid.add(square, col, row);
+
+                // Use 7 - row because the FX board is flipped
+                boardGrid.add(square, col, 7 - row);
             }
         }
     }
