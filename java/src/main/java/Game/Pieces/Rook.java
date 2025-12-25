@@ -46,5 +46,4 @@ public class Rook implements Piece {
        MoveLogic moveLogic = new MoveLogic();
        return moveLogic.rookMoveset(this, position, board);
     }
-
 }

@@ -5,23 +5,22 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Bishop implements Piece {
+public class Queen implements Piece {
     Position position;
     ChessBoard board;
     Color color;
     private ImageView imageView;
 
-    public Bishop(Position position, ChessBoard board, Color color) {
+    public Queen(Position position, ChessBoard board, Color color) {
         this.position = position;
         this.board = board;
         this.color = color;
 
         // Set up the image for specific piece
         this.imageView = new ImageView(
-                new Image("/images/" + getColorAsString() + "_bishop.png")
+                new Image("/images/" + getColorAsString() + "_queen.png")
         );
         this.imageView.setFitWidth(80);
         this.imageView.setFitHeight(80);
@@ -35,12 +34,11 @@ public class Bishop implements Piece {
         return (color == Color.WHITE) ? "white" : "black";
     }
     public boolean exists() {return true;}
-    public PieceType getType() {return PieceType.BISHOP;}
+    public PieceType getType() {return PieceType.QUEEN;}
     public Node getNode() {return imageView;}
 
     public List<Position> getValidMoves() {
         MoveLogic moveLogic = new MoveLogic();
-        return moveLogic.bishopMoveSet(this, position, board);
+        return moveLogic.queenMoveset(this, position, board);
     }
 }
-
