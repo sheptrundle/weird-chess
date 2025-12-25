@@ -31,5 +31,6 @@ public class ChessGameController {
 
         // Place all the pieces
 
+
     }
 }
