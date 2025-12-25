@@ -4,6 +4,9 @@ import Game.Pieces.Features.Color;
 import Game.Pieces.Features.MoveLogic;
 import Game.Pieces.Features.PieceType;
 import Game.Position;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +16,23 @@ public class Pawn implements Piece {
     ChessBoard board;
     Color color;
     boolean hasMoved;
+    private ImageView imageView;
 
     public Pawn(Position position, ChessBoard board, Color color) {
         this.position = position;
         this.board = board;
         this.color = color;
         hasMoved = false;
+
+        // Set up the image for specific piece
+        this.imageView = new ImageView(
+                new Image("/images/" + color + "_pawn.png")
+        );
+        this.imageView.setFitWidth(80);
+        this.imageView.setFitHeight(80);
     }
 
+    // Getters and Setters
     public Position getPosition() {return position;}
     public void setPosition(Position position) {
         this.position = position;
@@ -30,6 +42,7 @@ public class Pawn implements Piece {
     public boolean exists() {return true;}
     public PieceType getType() {return PieceType.PAWN;}
     public boolean hasMoved() {return hasMoved;}
+    public Node getNode() {return imageView;}
 
     public List<Position> diagonalAttacks() {
         List<Position> diagonalAttacks = new ArrayList<>();

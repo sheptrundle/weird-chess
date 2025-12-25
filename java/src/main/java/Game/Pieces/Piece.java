@@ -3,6 +3,7 @@ package Game.Pieces;
 import Game.Pieces.Features.Color;
 import Game.Pieces.Features.PieceType;
 import Game.Position;
+import javafx.scene.Node;
 
 import java.util.List;
 
@@ -24,5 +25,8 @@ public interface Piece {
 
     // Returns what the piece is
     public PieceType getType();
+
+    // Return node to use as an image on top of each square
+    public Node getNode();
 
 }

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="Controllers.StartScreenController"
            prefWidth="800" prefHeight="800"
@@ -19,10 +20,12 @@
             onAction="#handleStartGame"
             style="-fx-background-color: black; -fx-text-fill: white; -fx-font-size: 16;" />
 
-    <Label fx:id="errorMessage"
-           layoutX="500"
-           layoutY="10"
+    <Label fx:id="errorLabel"
            visible="false"
-           style= "-fx-text-fill: #4D2506; -fx-font-size: 18;" />
+           StackPane.alignment="BOTTOM_CENTER"
+           style="-fx-text-fill: red; -fx-font-size: 16;" />
+            <StackPane.margin>
+                <Insets top="0" right="0" bottom="100" left="0"/>
+            </StackPane.margin>
 
 </StackPane>

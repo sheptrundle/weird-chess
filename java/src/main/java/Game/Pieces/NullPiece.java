@@ -3,6 +3,8 @@ package Game.Pieces;
 import Game.Pieces.Features.Color;
 import Game.Pieces.Features.PieceType;
 import Game.Position;
+import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 
 import java.util.List;
 
@@ -19,6 +21,13 @@ public class NullPiece implements Piece {
     public List<Position> getValidMoves() {throw new NullPointerException("Cannot get valid moves of null piece at " + position);}
     public boolean exists() {return false;}
     public PieceType getType() {return PieceType.NULLPIECE;}
+    public Node getNode() {
+        ImageView invisible = new ImageView();
+        invisible.setFitWidth(80);
+        invisible.setFitHeight(80);
+        invisible.setOpacity(0); // completely invisible
+        return invisible;
+    }
 
 }
 
