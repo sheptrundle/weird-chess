@@ -1,8 +1,5 @@
 package Game.Pieces;
-import Game.Features.ChessBoard;
-import Game.Features.Color;
-import Game.Features.PieceType;
-import Game.Features.Position;
+import Game.Features.*;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -51,9 +48,10 @@ public class King implements Piece {
         int[] dy = { -1,  0, 1, -1, 1, -1,  0,  1 };
         List<Position> validMoves = new ArrayList<>();
 
+        MoveLogic moveLogic = new MoveLogic();
         for (int i = 0; i < 8; i++) {
             Position newPos = new Position(position.getRow() + dx[i], position.getColumn() + dy[i]);
-            if (newPos.isOnBoard()) validMoves.add(newPos);
+            if (moveLogic.isValidMove(this, board, newPos)) validMoves.add(newPos);
         }
 
         return validMoves;
