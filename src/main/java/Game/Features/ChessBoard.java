@@ -117,7 +117,7 @@ public class ChessBoard {
             throw new IllegalArgumentException("Cannot move NullPiece from " + from + " to " + to);
         }
 
-        // Logic for if the move is a pawn promotion
+        // Logic for if the move is a pawn promotion (auto-Queen)
         MoveLogic moveLogic = new MoveLogic();
         if (moveLogic.pawnPromotion(piece, to)) {
             setPieceAt(to, new Queen(to, this, piece.getColor()));
