@@ -1,9 +1,5 @@
 package Game.Pieces;
-import Game.Features.ChessBoard;
-import Game.Features.Color;
-import Game.Features.MoveLogic;
-import Game.Features.PieceType;
-import Game.Features.Position;
+import Game.Features.*;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,9 +21,8 @@ public class Pawn implements Piece {
         hasMoved = false;
 
         // Set up the image for specific piece
-        this.imageView = new ImageView(
-                new Image("/images/" + getColorAsString() + "_pawn.png")
-        );
+        ImageFactory imageFactory = new ImageFactory();
+        this.imageView = imageFactory.getImageView(this, board.getGallery());
         this.imageView.setFitWidth(80);
         this.imageView.setFitHeight(80);
     }

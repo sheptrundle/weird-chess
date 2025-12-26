@@ -20,9 +20,8 @@ public class Bishop implements Piece {
         this.color = color;
 
         // Set up the image for specific piece
-        this.imageView = new ImageView(
-                new Image("/images/" + getColorAsString() + "_bishop.png")
-        );
+        ImageFactory imageFactory = new ImageFactory();
+        this.imageView = imageFactory.getImageView(this, board.getGallery());
         this.imageView.setFitWidth(80);
         this.imageView.setFitHeight(80);
     }

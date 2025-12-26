@@ -1,4 +1,5 @@
 package Controllers;
+import Game.Features.Gallery;
 import javafx.fxml.FXML;
 
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 public class StartScreenController {
     @FXML private Label errorLabel;
+    private Gallery gallery;
 
 
     @FXML
@@ -22,7 +24,7 @@ public class StartScreenController {
             FXMLLoader loader = new FXMLLoader(StartScreenController.class.getResource("/FX/chess-board.fxml"));
             Parent root = loader.load();
             ChessGameController controller = loader.getController();
-            controller.initialize();
+            controller.initialize(gallery);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Weird Chess");

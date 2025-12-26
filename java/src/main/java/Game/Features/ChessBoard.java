@@ -3,10 +3,18 @@ import Game.Pieces.*;
 
 public class ChessBoard {
     public Piece[][] board;
+    Gallery gallery;
 
     public ChessBoard() {
+        gallery = Gallery.PIXEL;
         board = new Piece[8][8];
     }
+
+    // Returns the gallery of the board
+    public Gallery getGallery() {return gallery;}
+
+    // Sets the gallery of the board
+    public void setGallery(Gallery gallery) {this.gallery = gallery;}
 
     // Return piece at a position
     public Piece getPieceAt(Position position) {

@@ -1,6 +1,7 @@
 package Controllers;
 
 import Game.Features.ChessBoard;
+import Game.Features.Gallery;
 import Game.Pieces.NullPiece;
 import Game.Pieces.Piece;
 import Game.Features.Position;
@@ -20,8 +21,10 @@ public class ChessGameController {
     private ChessBoard chessBoard;
     private HashSet<Position> validMoves;
     private Piece movingPiece;
+    private Gallery gallery;
 
-    public void initialize() {
+    public void initialize(Gallery gallery) {
+        this.gallery = gallery;
         setChessBoard(new ChessBoard());
     }
 
@@ -131,7 +134,7 @@ public class ChessGameController {
             StackPane square = squares[pos.getRow()][pos.getColumn()];
 
             Circle circle = new Circle(33);
-            circle.setFill(Color.rgb(180, 180, 180, 0.6)); // light gray and semi-transparent
+            circle.setFill(Color.rgb(200, 150, 150, 0.6)); // light gray and semi-transparent
             circle.setMouseTransparent(true); // clicks pass through
 
             highlights[pos.getRow()][pos.getColumn()] = circle;
