@@ -103,13 +103,13 @@ public class ChessBoard {
     }
 
     // This will have to get wayyyy more complicated I assume?
-    public void movePiece(Position from, Position to) {
-        Piece movingPiece = getPieceAt(from);
-        if (!movingPiece.exists()) {
+    public void movePiece(Piece piece, Position to) {
+        Position from = piece.getPosition();
+        if (!piece.exists()) {
             throw new IllegalArgumentException("Cannot move NullPiece from " + from + " to " + to);
         }
-        movingPiece.setPosition(to);
-        setPieceAt(to, movingPiece);
+        piece.setPosition(to);
+        setPieceAt(to, piece);
         setPieceAt(from, new NullPiece(from));
     }
 }

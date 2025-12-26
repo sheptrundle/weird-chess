@@ -1,19 +1,25 @@
 package Controllers;
 
 import Game.Features.ChessBoard;
+import Game.Pieces.NullPiece;
 import Game.Pieces.Piece;
 import Game.Features.Position;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import java.util.HashSet;
 
 public class ChessGameController {
     @FXML
     private GridPane boardGrid;
     private StackPane[][] squares = new StackPane[8][8];
+    private Circle[][] highlights = new Circle[8][8];
     private ChessBoard chessBoard;
+    private HashSet<Position> validMoves;
+    private Piece movingPiece;
 
     public void initialize() {
         setChessBoard(new ChessBoard());
@@ -24,6 +30,7 @@ public class ChessGameController {
         this.chessBoard = board;
         createGrid();
         chessBoard.initialize();
+        validMoves = new HashSet<>();
         updateUI();
     }
 
@@ -50,20 +57,40 @@ public class ChessGameController {
                 else {square.setStyle("-fx-background-color: #b58863");}
 
                 squares[row][col] = square;
-                square.setOnMouseClicked(event -> handleFirstClick(r, c)); //todo: fix this
+                square.setOnMouseClicked(event -> handleClick(r, c));
 
                 // Use 7 - row because the FX board is flipped
                 boardGrid.add(square, col, 7 - row);
             }
         }
     }
-    private void handleFirstClick(int row, int col) {
+
+    private void handleClick(int row, int col) {
         Position clicked = new Position(row, col);
-        // First click: select a piece
-        Piece piece = chessBoard.getPieceAt(clicked);
-        if (piece.exists()) {
-            highlightMoves(piece);
+
+        // Move piece to this square
+        System.out.println("clicked: " + clicked);
+        if (validMoves.contains(clicked)) {
+            System.out.println("Clicked is a valid move, moving...");
+            chessBoard.movePiece(movingPiece, clicked);
+            clearHighlights();
+            System.out.println("MOVED");
         }
+
+        // Select a piece and highlight moves
+        else {
+            Piece piece = chessBoard.getPieceAt(clicked);
+            if (piece.exists()) {
+                System.out.println("Highlighting new piece " + piece.getType() + " at " + piece.getPosition());
+                highlightMoves(piece);
+                movingPiece = piece;
+            } else {
+                System.out.println("Clicked empty square at " + piece.getPosition() + ", skipping");
+            }
+        }
+
+        // Update UI at the end of every click
+        updateUI();
     }
 
     // Shows all the UI (highlights and pieces) based on current chessBoard state
@@ -71,8 +98,10 @@ public class ChessGameController {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 StackPane square = squares[row][col];
-                square.getChildren().clear();
+                // Remove only piece nodes
+                square.getChildren().removeIf(node -> node instanceof ImageView);
 
+                // Add current piece
                 Piece piece = chessBoard.getPieceAt(new Position(row, col));
                 square.getChildren().add(piece.getNode());
             }
@@ -80,15 +109,33 @@ public class ChessGameController {
     }
 
     private void highlightMoves(Piece piece) {
-        System.out.println("Highlighting moves for " + piece.getColorAsString() + " " + piece.getType().toString() + " at square " + piece.getPosition() + "...");
-        for (Position p : piece.getValidMoves()) {
-            StackPane square = squares[p.getRow()][p.getColumn()];
-            // Create transparent circle
-            Circle circle = new Circle(33); // radius
-            circle.setFill(Color.rgb(180, 180, 180, 0.6)); // light gray semi-transparent
+        System.out.println("Highlighting moves for " + piece.getColorAsString() + " " + piece.getType() + " at square " + piece.getPosition() + "...");
+        // Clear old highlights first
+        clearHighlights();
+
+        for (Position pos : piece.getValidMoves()) {
+            validMoves.add(pos);
+            StackPane square = squares[pos.getRow()][pos.getColumn()];
+
+            Circle circle = new Circle(33);
+            circle.setFill(Color.rgb(180, 180, 180, 0.6)); // light gray and semi-transparent
             circle.setMouseTransparent(true); // clicks pass through
+
+            highlights[pos.getRow()][pos.getColumn()] = circle;
             square.getChildren().add(circle);
         }
         System.out.println("DONE");
+    }
+
+    private void clearHighlights() {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (highlights[row][col] != null) {
+                    squares[row][col].getChildren().remove(highlights[row][col]);
+                    highlights[row][col] = null;
+                }
+            }
+        }
+        validMoves.clear();
     }
 }
