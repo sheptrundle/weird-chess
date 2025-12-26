@@ -21,7 +21,7 @@ public class RunWeirdChess extends Application {
 
         // Set scene
         Scene scene = new Scene(root);
-        stage.setTitle("Weird Chess");
+        stage.setTitle("Funky Chess");
         stage.setScene(scene);
         stage.show();
 

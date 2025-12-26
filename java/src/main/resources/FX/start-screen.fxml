@@ -16,7 +16,7 @@
           spacing="25">
 
         <!-- Title -->
-        <Label text="Welcome to Chess"
+        <Label text="Welcome to Funky Chess"
                style="-fx-font-size: 48; -fx-font-weight: bold;"/>
 
         <!-- Start Game Button -->

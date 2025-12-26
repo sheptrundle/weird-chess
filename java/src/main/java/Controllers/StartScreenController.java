@@ -34,7 +34,7 @@ public class StartScreenController {
             controller.initialize(galleryDropdown.getValue());
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Weird Chess");
+            stage.setTitle("Funky Chess");
             stage.show();
         } catch (IOException e) {
             errorLabel.setText("ERROR: " + e.getMessage());
