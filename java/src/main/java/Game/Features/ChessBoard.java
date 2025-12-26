@@ -18,12 +18,12 @@ public class ChessBoard {
         board[position.getRow()][position.getColumn()] = piece;
     }
 
-    public ChessBoard flippedCopy() {
+    // Returns a flipped copy of the current board
+    public ChessBoard flipped() {
         ChessBoard flipped = new ChessBoard();
-        int flippedRow = 0;
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                flipped.board[flippedRow][col] = board[7 - row][col];
+                flipped.board[row][col] = board[7 - row][col];
             }
         }
         return flipped;

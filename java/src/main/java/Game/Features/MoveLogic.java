@@ -1,5 +1,6 @@
 package Game.Features;
 import Game.Pieces.Bishop;
+import Game.Pieces.Pawn;
 import Game.Pieces.Piece;
 
 import java.util.ArrayList;
@@ -83,6 +84,64 @@ public class MoveLogic {
         queenMoves.addAll(bishopMoveSet(piece, position, board));
         return queenMoves;
     }
+
+    // Return all valid moves for a Pawn at a given position on a given board
+    public List<Position> pawnMoveSet(Pawn pawn, Position position, ChessBoard board) {
+        List<Position> validMoves = new ArrayList<>();
+
+        ChessBoard useBoard;
+        Position usePos;
+        boolean needsFlip = false;
+
+        if (pawn.getColor() == Color.WHITE) {
+            useBoard = board;
+            usePos = position;
+        } else {
+            useBoard = board.flipped();
+            usePos = position.flipped();
+            needsFlip = true;
+        }
+
+        int row = usePos.getRow();
+        int col = usePos.getColumn();
+
+        // Forward moves
+        for (int i = 1; i <= 2; i++) {
+            Position to = new Position(row + i, col);
+            if (!to.isOnBoard()) break;
+
+            if (!useBoard.getPieceAt(to).exists()) {
+                validMoves.add(to);
+            } else {
+                break;
+            }
+            if (pawn.hasMoved()) break;
+        }
+
+        // Diagonal captures
+        int[] dx = {-1, 1};
+        for (int d : dx) {
+            Position diag = new Position(row + 1, col + d);
+            if (!diag.isOnBoard()) continue;
+
+            Piece target = useBoard.getPieceAt(diag);
+            if (target.exists() && target.getColor() != pawn.getColor()) {
+                validMoves.add(diag);
+            }
+        }
+
+        // Flip back if black
+        if (needsFlip) {
+            List<Position> flipped = new ArrayList<>();
+            for (Position p : validMoves) {
+                flipped.add(p.flipped());
+            }
+            return flipped;
+        }
+
+        return validMoves;
+    }
+
 
     // Todo: implement these
     public void shortCastle(Piece king, Piece rook) {}
