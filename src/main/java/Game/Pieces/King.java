@@ -1,7 +1,13 @@
 package Game.Pieces;
 import Game.Features.*;
+import Game.Live.Player;
+import Game.Live.Team;
 import Game.Logic.MoveLogic;
 import Game.Logic.PieceLogic;
+import Game.Pieces.Assets.Color;
+import Game.Pieces.Assets.Piece;
+import Game.Pieces.Assets.PieceType;
+import UI.ImageFactory;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
@@ -53,7 +59,7 @@ public class King implements Piece {
         int[] dy = { -1,  0, 1, -1, 1, -1,  0,  1 };
         List<Position> validMoves = new ArrayList<>();
 
-        HashSet<Position> targetedPositions = getOppositeTeam().getAllTargets();
+        HashSet<Position> targetedPositions = getOppositePlayer().getAllTargets();
 
         MoveLogic moveLogic = new MoveLogic();
         for (int i = 0; i < 8; i++) {
@@ -66,10 +72,10 @@ public class King implements Piece {
         return validMoves;
     }
 
-    public Team getOppositeTeam() {
+    public Player getOppositePlayer() {
         return switch (getColor()) {
-            case WHITE -> board.getTeam(Color.BLACK);
-            case BLACK -> board.getTeam(Color.WHITE);
+            case WHITE -> board.getPlayer(Color.BLACK);
+            case BLACK -> board.getPlayer(Color.WHITE);
         };
     }
 }

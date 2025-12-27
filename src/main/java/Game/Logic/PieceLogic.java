@@ -1,7 +1,6 @@
 package Game.Logic;
 
-import Game.Features.Color;
-import Game.Pieces.Piece;
+import Game.Pieces.Assets.Color;
 
 public class PieceLogic {
 

@@ -1,8 +1,9 @@
 package Game.Pieces;
 
 import Game.Features.ChessBoard;
-import Game.Features.Color;
-import Game.Features.PieceType;
+import Game.Pieces.Assets.Color;
+import Game.Pieces.Assets.Piece;
+import Game.Pieces.Assets.PieceType;
 import Game.Features.Position;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;

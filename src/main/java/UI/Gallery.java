@@ -1,4 +1,4 @@
-package Game.Features;
+package UI;
 
 public enum Gallery {
     ORGINAL,

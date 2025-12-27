@@ -1,6 +1,7 @@
-package Game.Features;
+package UI;
 
-import Game.Pieces.Piece;
+import Game.Pieces.Assets.PieceType;
+import Game.Pieces.Assets.Piece;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

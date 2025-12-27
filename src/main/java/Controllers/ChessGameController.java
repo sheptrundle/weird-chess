@@ -1,9 +1,9 @@
 package Controllers;
 
 import Game.Features.ChessBoard;
-import Game.Features.Gallery;
+import UI.Gallery;
 import Game.Pieces.NullPiece;
-import Game.Pieces.Piece;
+import Game.Pieces.Assets.Piece;
 import Game.Features.Position;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;

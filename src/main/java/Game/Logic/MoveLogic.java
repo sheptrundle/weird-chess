@@ -1,8 +1,10 @@
 package Game.Logic;
 import Game.Features.*;
+import Game.Live.Player;
+import Game.Pieces.Assets.Color;
+import Game.Pieces.Assets.PieceType;
 import Game.Pieces.Pawn;
-import Game.Pieces.Piece;
-import javafx.geometry.Pos;
+import Game.Pieces.Assets.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +33,8 @@ public class MoveLogic {
     // Return true if a move to a new position is targeted by the other team
     public boolean isTargeted(Piece piece, Position destination) {
         ChessBoard board = piece.getBoard();
-        Team otherTeam = board.getTeam(piece.getOppositeColor());
-        return otherTeam.targets(destination);
+        Player otherPlayer = board.getPlayer(piece.getOppositeColor());
+        return otherPlayer.targets(destination);
     }
 
     // Return all valid moves for a Knight at a given position on a given board

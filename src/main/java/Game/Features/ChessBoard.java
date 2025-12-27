@@ -1,18 +1,22 @@
 package Game.Features;
+import Game.Live.Player;
 import Game.Logic.MoveLogic;
 import Game.Pieces.*;
+import Game.Pieces.Assets.Color;
+import Game.Pieces.Assets.Piece;
+import UI.Gallery;
 
 public class ChessBoard {
     public Piece[][] board;
     Gallery gallery;
-    Team whiteTeam;
-    Team blackTeam;
+    Player whitePlayer;
+    Player blackPlayer;
 
     public ChessBoard() {
         gallery = Gallery.PIXEL;
         board = new Piece[8][8];
-        whiteTeam = new Team();
-        blackTeam = new Team();
+        whitePlayer = new Player(Color.WHITE);
+        blackPlayer = new Player(Color.BLACK);
     }
 
     // Returns the gallery of the board
@@ -31,11 +35,11 @@ public class ChessBoard {
         board[position.getRow()][position.getColumn()] = piece;
     }
 
-    // Return a specific team (either white or black)
-    public Team getTeam(Color color) {
+    // Return a specific player (either white or black)
+    public Player getPlayer(Color color) {
         return switch (color) {
-            case WHITE -> whiteTeam;
-            case BLACK -> blackTeam;
+            case WHITE -> whitePlayer;
+            case BLACK -> blackPlayer;
         };
     }
 
@@ -108,7 +112,7 @@ public class ChessBoard {
             }
         }
 
-        setStartingTeams();
+        setStartingPlayers();
     }
 
     // Move a piece from one position to another
@@ -119,14 +123,14 @@ public class ChessBoard {
             throw new IllegalArgumentException("Cannot move NullPiece from " + from + " to " + to);
         }
 
-        // Update teams if the move is a capture
+        // Update player's teams if the move is a capture
         if (moveLogic.isCapture(piece, to, this)) {
             Piece capturedPiece = getPieceAt(to);
             switch (capturedPiece.getColor()) {
                 case WHITE:
-                    whiteTeam.remove(capturedPiece);
+                    whitePlayer.removePiece(capturedPiece);
                 case BLACK:
-                    blackTeam.remove(capturedPiece);
+                    blackPlayer.removePiece(capturedPiece);
             }
         }
 
@@ -144,15 +148,15 @@ public class ChessBoard {
         }
 
         // Recalculate allTargets after each successful move
-        whiteTeam.calcAllTargets();
-        blackTeam.calcAllTargets();
+        whitePlayer.calcAllTargets();
+        blackPlayer.calcAllTargets();
         System.out.println("*SUCCESSFULL MOVE*");
-        System.out.println("Black team targets: " + blackTeam.getAllTargets());
-        System.out.println("White team targets: " + whiteTeam.getAllTargets());
+        System.out.println("Black targets: " + blackPlayer.getAllTargets());
+        System.out.println("White targets: " + whitePlayer.getAllTargets());
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    public void setStartingTeams() {
+    public void setStartingPlayers() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 Position pos = new Position(row, col);
@@ -163,11 +167,11 @@ public class ChessBoard {
 
                 // Add white piece
                 else if (piece.getColor() == Color.WHITE) {
-                    whiteTeam.add(piece);
+                    whitePlayer.addPiece(piece);
                 }
                 // Add black piece
                 else if (piece.getColor() == Color.BLACK) {
-                    blackTeam.add(piece);
+                    blackPlayer.addPiece(piece);
                 }
                 else {throw new  IllegalArgumentException("Failed getting color from piece " + piece);}
             }

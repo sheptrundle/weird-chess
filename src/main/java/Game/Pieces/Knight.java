@@ -2,10 +2,13 @@ package Game.Pieces;
 import Game.Features.*;
 import Game.Logic.MoveLogic;
 import Game.Logic.PieceLogic;
+import Game.Pieces.Assets.Color;
+import Game.Pieces.Assets.Piece;
+import Game.Pieces.Assets.PieceType;
+import UI.ImageFactory;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Knight implements Piece {

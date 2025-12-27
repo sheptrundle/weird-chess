@@ -1,9 +1,8 @@
-package Game.Features;
+package Game.Live;
 
-import Game.Logic.MoveLogic;
+import Game.Features.Position;
 import Game.Logic.TargetLogic;
-import Game.Pieces.Pawn;
-import Game.Pieces.Piece;
+import Game.Pieces.Assets.Piece;
 import java.util.HashSet;
 
 public class Team {

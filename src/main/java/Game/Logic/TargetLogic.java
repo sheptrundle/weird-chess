@@ -1,10 +1,10 @@
 package Game.Logic;
 
 import Game.Features.ChessBoard;
-import Game.Features.Color;
-import Game.Features.PieceType;
+import Game.Pieces.Assets.Color;
+import Game.Pieces.Assets.PieceType;
 import Game.Features.Position;
-import Game.Pieces.Piece;
+import Game.Pieces.Assets.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
