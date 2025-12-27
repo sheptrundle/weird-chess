@@ -1,6 +1,7 @@
 package Controllers;
 
 import Game.Features.ChessBoard;
+import UI.CircleBuilder;
 import UI.Gallery;
 import Game.Pieces.NullPiece;
 import Game.Pieces.Assets.Piece;
@@ -127,9 +128,8 @@ public class ChessGameController {
             validMoves.add(pos);
             StackPane square = squares[pos.getRow()][pos.getColumn()];
 
-            Circle circle = new Circle(33);
-            circle.setFill(Color.rgb(200, 150, 150, 0.6)); // light gray and semi-transparent
-            circle.setMouseTransparent(true); // clicks pass through
+            CircleBuilder cb = new CircleBuilder();
+            Circle circle = cb.buildCircle("blue");
 
             highlights[pos.getRow()][pos.getColumn()] = circle;
             square.getChildren().add(circle);
