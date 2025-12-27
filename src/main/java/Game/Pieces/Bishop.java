@@ -1,11 +1,10 @@
 package Game.Pieces;
 
 import Game.Features.*;
+import Game.Logic.MoveLogic;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Bishop implements Piece {
@@ -40,7 +39,7 @@ public class Bishop implements Piece {
 
     public List<Position> getValidMoves() {
         MoveLogic moveLogic = new MoveLogic();
-        return moveLogic.bishopMoveSet(this, position, board);
+        return moveLogic.bishopMoveSet(this);
     }
 }
 

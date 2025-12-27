@@ -1,6 +1,8 @@
-package Game.Features;
+package Game.Logic;
+import Game.Features.*;
 import Game.Pieces.Pawn;
 import Game.Pieces.Piece;
+import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +19,6 @@ public class MoveLogic {
 
         // Can move to an open square or capture an opponents piece
         if (!destPiece.exists() || destPiece.getColor() != piece.getColor()) {
-            if (piece.getType() == PieceType.KING) {
-                // todo: check/mate logic goes here, gonna need other classes to make this word I bet
-            }
             return true;
         }
 
@@ -27,8 +26,34 @@ public class MoveLogic {
         return false;
     }
 
+    // Return true if a move to a new position is targeted by the other team
+    public boolean isTargeted(Position destination, Team otherTeam) {
+        return otherTeam.targets(destination);
+    }
+
+    // Return all valid moves for a Knight at a given position on a given board
+    public List<Position> knightMoveSet(Piece piece) {
+        Position position = piece.getPosition();
+        ChessBoard board = piece.getBoard();
+
+        int[] dx = { 1,  2,  2,  1, -1, -2, -2, -1 };
+        int[] dy = { 2,  1, -1, -2, -2, -1,  1,  2 };
+        List<Position> validMoves = new ArrayList<>();
+
+        for (int i = 0; i < 8; i++) {
+            Position newPos = new Position(position.getRow() + dx[i], position.getColumn() + dy[i]);
+            if (isValidMove(piece, board, newPos)) {
+                validMoves.add(newPos);
+            }
+        }
+        return validMoves;
+    }
+
     // Return all valid moves for a Bishop at a given position on a given board
-    public List<Position> bishopMoveSet(Piece piece, Position position, ChessBoard board) {
+    public List<Position> bishopMoveSet(Piece piece) {
+        Position position = piece.getPosition();
+        ChessBoard board = piece.getBoard();
+
         int[] dy = {1, -1};
         int[] dx = {1, -1};
         List<Position> validMoves = new ArrayList<>();
@@ -56,7 +81,10 @@ public class MoveLogic {
     }
 
     // Return all valid moves for a Rook at a given position on a given board
-    public List<Position> rookMoveset(Piece piece, Position position, ChessBoard board) {
+    public List<Position> rookMoveset(Piece piece) {
+        Position position = piece.getPosition();
+        ChessBoard board = piece.getBoard();
+
         int[] dxy = {1, -1};
         List<Position> validMoves = new ArrayList<>();
         MoveLogic moveLogic = new MoveLogic();
@@ -95,15 +123,18 @@ public class MoveLogic {
         return validMoves;
     }
 
-    public List<Position> queenMoveset(Piece piece, Position position, ChessBoard board) {
+    public List<Position> queenMoveset(Piece piece) {
         List<Position> queenMoves = new ArrayList<>();
-        queenMoves.addAll(rookMoveset(piece, position, board));
-        queenMoves.addAll(bishopMoveSet(piece, position, board));
+        queenMoves.addAll(rookMoveset(piece));
+        queenMoves.addAll(bishopMoveSet(piece));
         return queenMoves;
     }
 
     // Return all valid moves for a Pawn at a given position on a given board
-    public List<Position> pawnMoveSet(Pawn pawn, Position position, ChessBoard board, boolean onlyTargets) {
+    public List<Position> pawnMoveSet(Pawn pawn, boolean onlyTargets) {
+        Position position = pawn.getPosition();
+        ChessBoard board = pawn.getBoard();
+
         List<Position> validMoves = new ArrayList<>();
         ChessBoard useBoard;
         Position usePos;

@@ -1,7 +1,7 @@
 package Game.Pieces;
 import Game.Features.*;
+import Game.Logic.MoveLogic;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -40,18 +40,6 @@ public class Knight implements Piece {
     // Return a list of all the valid moves from knight at its current position
     public List<Position> getValidMoves() {
         MoveLogic moveLogic = new MoveLogic();
-
-        int[] dx = { 1,  2,  2,  1, -1, -2, -2, -1 };
-        int[] dy = { 2,  1, -1, -2, -2, -1,  1,  2 };
-        List<Position> validMoves = new ArrayList<>();
-
-        for (int i = 0; i < 8; i++) {
-            Position newPos = new Position(position.getRow() + dx[i], position.getColumn() + dy[i]);
-            if (moveLogic.isValidMove(this, board, newPos)) {
-                validMoves.add(newPos);
-            }
-        }
-
-        return validMoves;
+        return moveLogic.knightMoveSet(this);
     }
 }

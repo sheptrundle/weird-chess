@@ -1,10 +1,11 @@
 package Game.Pieces;
 import Game.Features.*;
+import Game.Logic.MoveLogic;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class King implements Piece {
@@ -48,12 +49,23 @@ public class King implements Piece {
         int[] dy = { -1,  0, 1, -1, 1, -1,  0,  1 };
         List<Position> validMoves = new ArrayList<>();
 
+        HashSet<Position> targetedPositions = getOppositeTeam().getAllTargets();
+
         MoveLogic moveLogic = new MoveLogic();
         for (int i = 0; i < 8; i++) {
             Position newPos = new Position(position.getRow() + dx[i], position.getColumn() + dy[i]);
-            if (moveLogic.isValidMove(this, board, newPos)) validMoves.add(newPos);
+            if (moveLogic.isValidMove(this, board, newPos) && !targetedPositions.contains(newPos)) {
+                validMoves.add(newPos);
+            }
         }
 
         return validMoves;
+    }
+
+    public Team getOppositeTeam() {
+        return switch (getColor()) {
+            case WHITE -> board.getTeam(Color.BLACK);
+            case BLACK -> board.getTeam(Color.WHITE);
+        };
     }
 }

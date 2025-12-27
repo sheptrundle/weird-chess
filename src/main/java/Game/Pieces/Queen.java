@@ -1,8 +1,8 @@
 package Game.Pieces;
 
 import Game.Features.*;
+import Game.Logic.MoveLogic;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
@@ -39,6 +39,6 @@ public class Queen implements Piece {
 
     public List<Position> getValidMoves() {
         MoveLogic moveLogic = new MoveLogic();
-        return moveLogic.queenMoveset(this, position, board);
+        return moveLogic.queenMoveset(this);
     }
 }

@@ -1,4 +1,5 @@
 package Game.Features;
+import Game.Logic.MoveLogic;
 import Game.Pieces.*;
 
 public class ChessBoard {
@@ -30,6 +31,14 @@ public class ChessBoard {
         board[position.getRow()][position.getColumn()] = piece;
     }
 
+    // Return a specific team (either white or black)
+    public Team getTeam(Color color) {
+        return switch (color) {
+            case WHITE -> whiteTeam;
+            case BLACK -> blackTeam;
+        };
+    }
+
     // Returns a flipped copy of the current board
     public ChessBoard flipped() {
         ChessBoard flipped = new ChessBoard();
@@ -45,30 +54,16 @@ public class ChessBoard {
     public void createAndPlace(Color color, String pieceName, int row, int col) throws IllegalArgumentException{
         Piece piece;
         Position pos = new Position(row,col);
-        if (pieceName.equals("pawn")) {
-            piece = new Pawn(pos, this, color);
-        }
-        else if (pieceName.equals("rook")) {
-            piece = new Rook(pos, this, color);
-        }
-        else if (pieceName.equals("bishop")) {
-            piece = new Bishop(pos, this, color);
-        }
-        else if (pieceName.equals("knight")) {
-            piece = new Knight(pos, this, color);
-        }
-        else if (pieceName.equals("queen")) {
-            piece = new Queen(pos, this, color);
-        }
-        else if (pieceName.equals("king")) {
-            piece = new King(pos, this, color);
-        }
-        else if (pieceName.equals("null")) {
-            piece = new NullPiece(pos);
-        }
-        else {
-            throw new IllegalArgumentException(pieceName + " is not a valid piece name");
-        }
+        piece = switch (pieceName) {
+            case "pawn" -> new Pawn(pos, this, color);
+            case "rook" -> new Rook(pos, this, color);
+            case "bishop" -> new Bishop(pos, this, color);
+            case "knight" -> new Knight(pos, this, color);
+            case "queen" -> new Queen(pos, this, color);
+            case "king" -> new King(pos, this, color);
+            case "null" -> new NullPiece(pos);
+            default -> throw new IllegalArgumentException(pieceName + " is not a valid piece name");
+        };
         setPieceAt(pos, piece);
     }
 
@@ -112,6 +107,8 @@ public class ChessBoard {
                 createAndPlace(Color.WHITE,"null", row, col);
             }
         }
+
+        setStartingTeams();
     }
 
     // Move a piece from one position to another

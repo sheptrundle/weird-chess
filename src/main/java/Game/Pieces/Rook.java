@@ -1,11 +1,10 @@
 package Game.Pieces;
 
 import Game.Features.*;
+import Game.Logic.MoveLogic;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Rook implements Piece {
@@ -40,6 +39,6 @@ public class Rook implements Piece {
 
     public List<Position> getValidMoves() {
        MoveLogic moveLogic = new MoveLogic();
-       return moveLogic.rookMoveset(this, position, board);
+       return moveLogic.rookMoveset(this);
     }
 }
