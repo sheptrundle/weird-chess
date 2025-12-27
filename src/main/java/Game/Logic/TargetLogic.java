@@ -2,6 +2,7 @@ package Game.Logic;
 
 import Game.Features.ChessBoard;
 import Game.Features.Color;
+import Game.Features.PieceType;
 import Game.Features.Position;
 import Game.Pieces.Piece;
 
@@ -121,7 +122,7 @@ public class TargetLogic {
                 targets.add(pos);
 
                 // Stop sliding once any piece is encountered
-                if (board.getPieceAt(pos).exists()) break;
+                if (board.getPieceAt(pos).exists() && board.getPieceAt(pos).getType() != PieceType.KING) break;
             }
         }
         return targets;
