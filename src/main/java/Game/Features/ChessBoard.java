@@ -129,20 +129,23 @@ public class ChessBoard {
             switch (capturedPiece.getColor()) {
                 case WHITE:
                     whitePlayer.removePiece(capturedPiece);
+                    break;
                 case BLACK:
                     blackPlayer.removePiece(capturedPiece);
+                    break;
             }
         }
 
         // Logic for if the move is a pawn promotion (auto-Queen)
         if (moveLogic.pawnPromotion(piece, to)) {
-            setPieceAt(to, new Queen(to, this, piece.getColor()));
+            Queen newQueen = new Queen(to, this, piece.getColor());
+            setPieceAt(to, newQueen);
             setPieceAt(from, new NullPiece(from));
             Player promotingPlayer = getPlayer(piece.getColor());
 
             // Remove pawn, add a new queen
             promotingPlayer.removePiece(piece);
-            promotingPlayer.addPiece(new Queen(to, this, piece.getColor()));
+            promotingPlayer.addPiece(newQueen);
         }
 
         // Regular move
@@ -159,7 +162,7 @@ public class ChessBoard {
         System.out.println("Black targets: " + blackPlayer.getAllTargets());
         System.out.println("White targets: " + whitePlayer.getAllTargets());
         System.out.println("All black pieces: " + blackPlayer.getTeam().toString());
-        System.out.println("All white pieces: " + blackPlayer.getTeam().toString());
+        System.out.println("All white pieces: " + whitePlayer.getTeam().toString());
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
