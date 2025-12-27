@@ -117,12 +117,23 @@ public class ChessBoard {
     // Move a piece from one position to another
     public void movePiece(Piece piece, Position to) {
         Position from = piece.getPosition();
+        MoveLogic moveLogic = new MoveLogic();
         if (!piece.exists()) {
             throw new IllegalArgumentException("Cannot move NullPiece from " + from + " to " + to);
         }
 
+        // Update teams if the move is a capture
+        if (moveLogic.isCapture(piece, to, this)) {
+            Piece capturedPiece = getPieceAt(to);
+            switch (capturedPiece.getColor()) {
+                case WHITE:
+                    whiteTeam.remove(capturedPiece);
+                case BLACK:
+                    blackTeam.remove(capturedPiece);
+            }
+        }
+
         // Logic for if the move is a pawn promotion (auto-Queen)
-        MoveLogic moveLogic = new MoveLogic();
         if (moveLogic.pawnPromotion(piece, to)) {
             setPieceAt(to, new Queen(to, this, piece.getColor()));
             setPieceAt(from, new NullPiece(from));
