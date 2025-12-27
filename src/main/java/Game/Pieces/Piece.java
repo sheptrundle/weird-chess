@@ -15,6 +15,9 @@ public interface Piece {
     // Return the color as a string
     public String getColorAsString();
 
+    // Return opposite color
+    public Color getOppositeColor();
+
     // Returns position of the piece
     public Position getPosition();
 

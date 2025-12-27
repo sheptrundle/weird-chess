@@ -1,6 +1,7 @@
 package Game.Features;
 
 import Game.Logic.MoveLogic;
+import Game.Logic.TargetLogic;
 import Game.Pieces.Pawn;
 import Game.Pieces.Piece;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ public class Team {
 
     public Team() {
         pieces = new HashSet<>();
+        allTargets = new HashSet<>();
     }
 
     public void add(Piece piece) {pieces.add(piece);}
@@ -24,11 +26,10 @@ public class Team {
     public HashSet<Position> getAllTargets() {return allTargets;}
 
     public void calcAllTargets() {
+        allTargets.clear();
         for (Piece piece : pieces) {
-            /*
             TargetLogic targetLogic = new TargetLogic();
-            allTargets.addAll(targetLogic.getTargets(piece))
-             */
+            allTargets.addAll(targetLogic.getTargetsForPiece(piece));
         }
     }
 }

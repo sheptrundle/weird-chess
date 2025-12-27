@@ -1,6 +1,7 @@
 package Game.Pieces;
 import Game.Features.*;
 import Game.Logic.MoveLogic;
+import Game.Logic.PieceLogic;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
@@ -39,9 +40,12 @@ public class King implements Piece {
     public String getColorAsString() {
         return (color == Color.WHITE) ? "white" : "black";
     }
+    public Color getOppositeColor() {
+        PieceLogic pieceLogic = new PieceLogic();
+        return pieceLogic.getOppositeColor(color);
+    }
     public boolean exists() {return true;}
     public PieceType getType() {return PieceType.KING;}
-    public boolean hasMoved() {return hasMoved;}
     public Node getNode() {return imageView;}
 
     public List<Position> getValidMoves() {
@@ -54,7 +58,7 @@ public class King implements Piece {
         MoveLogic moveLogic = new MoveLogic();
         for (int i = 0; i < 8; i++) {
             Position newPos = new Position(position.getRow() + dx[i], position.getColumn() + dy[i]);
-            if (moveLogic.isValidMove(this, newPos) && !targetedPositions.contains(newPos)) {
+            if (moveLogic.isValidMove(this, newPos) && !moveLogic.isTargeted(this, newPos)) {
                 validMoves.add(newPos);
             }
         }

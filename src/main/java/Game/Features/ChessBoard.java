@@ -142,6 +142,14 @@ public class ChessBoard {
             setPieceAt(to, piece);
             setPieceAt(from, new NullPiece(from));
         }
+
+        // Recalculate allTargets after each successful move
+        whiteTeam.calcAllTargets();
+        blackTeam.calcAllTargets();
+        System.out.println("*SUCCESSFULL MOVE*");
+        System.out.println("Black team targets: " + blackTeam.getAllTargets());
+        System.out.println("White team targets: " + whiteTeam.getAllTargets());
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
     public void setStartingTeams() {

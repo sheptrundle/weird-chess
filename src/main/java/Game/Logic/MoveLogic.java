@@ -29,7 +29,9 @@ public class MoveLogic {
     }
 
     // Return true if a move to a new position is targeted by the other team
-    public boolean isTargeted(Position destination, Team otherTeam) {
+    public boolean isTargeted(Piece piece, Position destination) {
+        ChessBoard board = piece.getBoard();
+        Team otherTeam = board.getTeam(piece.getOppositeColor());
         return otherTeam.targets(destination);
     }
 
@@ -133,7 +135,7 @@ public class MoveLogic {
     }
 
     // Return all valid moves for a Pawn at a given position on a given board
-    public List<Position> pawnMoveSet(Pawn pawn, boolean onlyTargets) {
+    public List<Position> pawnMoveSet(Pawn pawn) {
         Position position = pawn.getPosition();
         ChessBoard board = pawn.getBoard();
 
@@ -164,11 +166,6 @@ public class MoveLogic {
             if (target.exists() && target.getColor() != pawn.getColor()) {
                 validMoves.add(diag);
             }
-        }
-
-        // If specified to return only the targets squares, just return now
-        if (onlyTargets) {
-            return validMoves;
         }
 
         // Forward moves

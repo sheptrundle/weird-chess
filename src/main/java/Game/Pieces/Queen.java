@@ -2,6 +2,7 @@ package Game.Pieces;
 
 import Game.Features.*;
 import Game.Logic.MoveLogic;
+import Game.Logic.PieceLogic;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
@@ -32,6 +33,10 @@ public class Queen implements Piece {
     public Color getColor() {return color;}
     public String getColorAsString() {
         return (color == Color.WHITE) ? "white" : "black";
+    }
+    public Color getOppositeColor() {
+        PieceLogic pieceLogic = new PieceLogic();
+        return pieceLogic.getOppositeColor(color);
     }
     public boolean exists() {return true;}
     public PieceType getType() {return PieceType.QUEEN;}

@@ -18,6 +18,7 @@ public class NullPiece implements Piece {
 
     public Color getColor() {throw new NullPointerException("Cannot get color of null piece at " + position);}
     public String getColorAsString() {throw new NullPointerException("Cannot get color (as string) of null piece at " + position);}
+    public Color getOppositeColor() {throw new NullPointerException("Cannot get opposite color of null piece at " + position);}
     public Position getPosition() {return position;}
     public void setPosition(Position position) {this.position = position;}
     public ChessBoard getBoard() {throw new NullPointerException("Cannot get board of null piece at " + position);}

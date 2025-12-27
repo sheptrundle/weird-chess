@@ -1,6 +1,7 @@
 package Game.Pieces;
 import Game.Features.*;
 import Game.Logic.MoveLogic;
+import Game.Logic.PieceLogic;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
@@ -37,6 +38,10 @@ public class Pawn implements Piece {
     public String getColorAsString() {
         return (color == Color.WHITE) ? "white" : "black";
     }
+    public Color getOppositeColor() {
+        PieceLogic pieceLogic = new PieceLogic();
+        return pieceLogic.getOppositeColor(color);
+    }
     public boolean exists() {return true;}
     public PieceType getType() {return PieceType.PAWN;}
     public boolean hasMoved() {return hasMoved;}
@@ -44,6 +49,6 @@ public class Pawn implements Piece {
 
     public List<Position> getValidMoves() {
         MoveLogic moveLogic = new MoveLogic();
-        return moveLogic.pawnMoveSet(this, false);
+        return moveLogic.pawnMoveSet(this);
     }
 }
