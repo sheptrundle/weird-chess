@@ -166,6 +166,11 @@ public class MoveLogic {
         return piece.getType() == PieceType.PAWN && (to.getRow() == 7 || to.getRow() == 0);
     }
 
+    public boolean isCapture(Piece piece, Position to, ChessBoard board) {
+        Piece other =  board.getPieceAt(to);
+        return (other.exists() && piece.getColor() != other.getColor());
+    }
+
 
     // Todo: implement these
     public void shortCastle(Piece king, Piece rook) {}
