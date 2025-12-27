@@ -72,10 +72,17 @@ public class King implements Piece {
         return validMoves;
     }
 
+    // Return the opposing player on current game
     public Player getOppositePlayer() {
         return switch (getColor()) {
             case WHITE -> board.getPlayer(Color.BLACK);
             case BLACK -> board.getPlayer(Color.WHITE);
         };
+    }
+
+    // Return true if king is currently in check
+    public boolean isInCheck() {
+        Player opponent = getOppositePlayer();
+        return opponent.targets(position);
     }
 }
