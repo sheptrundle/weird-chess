@@ -107,20 +107,21 @@ public class ChessGameController {
         // Select a piece and highlight moves
         else {
             Piece piece = chessBoard.getPieceAt(clicked);
+
+            // Cannot move opponent's pieces or empty spaces
+            if (!piece.exists() || piece.getColor() != liveGame.getCurrentTurn()) {
+                System.out.println("Clicked either null/enemy at " + piece.getPosition() + ", skipping");
+            }
             // If clicked on current moving piece, remove highlights/reset moving piece and move on
-            if (clicked.equals(movingPiece.getPosition())) {
+            else if (clicked.equals(movingPiece.getPosition())) {
                 clearHighlights();
                 movingPiece = new NullPiece(new Position(-1, -1));
             }
             // Clicked on a valid piece, but not in previous moveset
-            else if (piece.exists()) {
+            else {
                 System.out.println("Highlighting new piece " + piece.getType() + " at " + piece.getPosition());
                 highlightMoves(piece);
                 movingPiece = piece;
-            }
-            // Clicked on an invalid (null) piece, nothing happens
-            else {
-                System.out.println("Clicked empty square at " + piece.getPosition() + ", skipping");
             }
         }
 

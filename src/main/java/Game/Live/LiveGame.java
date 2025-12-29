@@ -17,6 +17,9 @@ public class LiveGame {
         whitePlayer.startTicking();
     }
 
+    // Returns the current turn as a Color
+    public Color getCurrentTurn() {return currentTurn;}
+
     // Returns the correct player based on current turn
     public Player getPlayer(boolean isCurrent) {
         if (currentTurn == Color.WHITE) {
