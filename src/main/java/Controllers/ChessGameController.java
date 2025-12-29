@@ -1,6 +1,7 @@
 package Controllers;
 
 import Game.Features.ChessBoard;
+import Game.Live.LiveGame;
 import Game.Pieces.Assets.Color;
 import Game.Pieces.King;
 import UI.CircleBuilder;
@@ -13,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
+
 import java.util.HashSet;
 
 public class ChessGameController {
@@ -20,14 +23,17 @@ public class ChessGameController {
     private StackPane[][] squares = new StackPane[8][8];
     private Circle[][] highlights = new Circle[8][8];
     private ChessBoard chessBoard;
+    private LiveGame liveGame;
     private HashSet<Position> validMoves;
     private Piece movingPiece;
     private Gallery gallery;
     private Circle checkHighlight;
 
-    public void initialize(Gallery gallery) {
+
+    public void initialize(Gallery gallery, Duration time) {
         this.gallery = gallery;
         setChessBoard(new ChessBoard());
+        liveGame = new LiveGame(time, chessBoard.getPlayer(Color.WHITE), chessBoard.getPlayer(Color.BLACK));
     }
 
     // Sets current chessboard and updates UI

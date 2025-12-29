@@ -1,6 +1,6 @@
 package UI;
 
 public enum Gallery {
-    ORGINAL,
+    ORIGINAL,
     PIXEL
 }

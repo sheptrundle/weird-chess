@@ -10,9 +10,9 @@ public class LiveGame {
     Color currentTurn;
 
     // Start a live game and begin ticking for white
-    public LiveGame(Duration time) {
-        whitePlayer = new Player(Color.WHITE,  time);
-        blackPlayer = new Player(Color.BLACK, time);
+    public LiveGame(Duration time, Player whitePlayer, Player blackPlayer) {
+        this.whitePlayer = whitePlayer;
+        this.blackPlayer = blackPlayer;
         currentTurn = Color.WHITE;
         whitePlayer.startTicking();
     }
@@ -48,6 +48,11 @@ public class LiveGame {
         } else {
             return blackPlayer.getClock().getTimeLeft();
         }
+    }
+
+    // Return false if either player is checkmated
+    public boolean isLive() {
+        return (!whitePlayer.isCheckmated() && !blackPlayer.isCheckmated());
     }
 
 }

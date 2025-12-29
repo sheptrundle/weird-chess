@@ -38,4 +38,9 @@ public class Player {
     public void calcAllTargets() {team.calcAllTargets();}
     public King getKing() {return team.getKing();}
 
+    // Return true if player is currently checkmated
+    public boolean isCheckmated() {
+        return team.getKing().getValidMoves().isEmpty();
+    }
+
 }

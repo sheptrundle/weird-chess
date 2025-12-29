@@ -17,6 +17,8 @@ public class ChessBoard {
     public ChessBoard() {
         gallery = Gallery.PIXEL;
         board = new Piece[8][8];
+        whitePlayer = new Player(Color.WHITE, Duration.minutes(10));
+        blackPlayer = new Player(Color.BLACK, Duration.minutes(10));
     }
 
     // Returns the gallery of the board
@@ -158,7 +160,7 @@ public class ChessBoard {
         // Recalculate allTargets after each successful move
         whitePlayer.calcAllTargets();
         blackPlayer.calcAllTargets();
-        System.out.println("*SUCCESSFULL MOVE*");
+        System.out.println("*SUCCESSFUL MOVE*");
         System.out.println("Black targets: " + blackPlayer.getAllTargets());
         System.out.println("White targets: " + whitePlayer.getAllTargets());
         System.out.println("All black pieces: " + blackPlayer.getTeam().toString());

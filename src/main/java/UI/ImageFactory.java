@@ -38,7 +38,7 @@ public class ImageFactory {
     }
 
     public String galleryToString(Gallery gallery) {
-        if (gallery == Gallery.ORGINAL) {
+        if (gallery == Gallery.ORIGINAL) {
             return "og";
         } else if (gallery == Gallery.PIXEL) {
             return "pixel";
