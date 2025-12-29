@@ -23,14 +23,14 @@
           style="-fx-background-color: black;"
           spacing="20">
 
-        <Label fx:id="topLabel"
+        <Label fx:id="blackClockLabel"
                text="Black Time"
                textFill="white"
                style="-fx-font-size: 20; -fx-font-weight: bold;" />
 
         <Pane fx:id="spacer" VBox.vgrow="ALWAYS"/>
 
-        <Label fx:id="bottomLabel"
+        <Label fx:id="whiteClockLabel"
                text="White Time"
                textFill="white"
                style="-fx-font-size: 20; -fx-font-weight: bold;" />

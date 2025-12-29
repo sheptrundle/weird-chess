@@ -34,6 +34,10 @@ public class LiveGame {
         }
     }
 
+    // Time left for each player, String formatted
+    public String whiteTimeLeft() {return whitePlayer.getClock().getTimeLeftString();}
+    public String blackTimeLeft() {return blackPlayer.getClock().getTimeLeftString();}
+
     // Switches the current turn and starts/stops ticking for both players
     public void switchTurn() {
         getPlayer(true).stopTicking();
@@ -50,8 +54,10 @@ public class LiveGame {
         }
     }
 
-    // Return false if either player is checkmated
+    // Ensure neither player is checkmated, then ensure both clocks are >0
     public boolean isLive() {
-        return (!whitePlayer.isCheckmated() && !blackPlayer.isCheckmated());
+        return (!whitePlayer.isCheckmated() && !blackPlayer.isCheckmated())
+                && !whitePlayer.getClock().isOutOfTime()
+                && !blackPlayer.getClock().isOutOfTime();
     }
 }

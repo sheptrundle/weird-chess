@@ -3,13 +3,16 @@ package Controllers;
 import Game.Features.ChessBoard;
 import Game.Live.LiveGame;
 import Game.Pieces.Assets.Color;
-import Game.Pieces.King;
 import UI.CircleBuilder;
 import UI.Gallery;
 import Game.Pieces.NullPiece;
 import Game.Pieces.Assets.Piece;
 import Game.Features.Position;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -20,6 +23,8 @@ import java.util.HashSet;
 
 public class ChessGameController {
     @FXML private GridPane boardGrid;
+    @FXML Label whiteClockLabel = new Label();
+    @FXML Label blackClockLabel = new Label();
     private StackPane[][] squares = new StackPane[8][8];
     private Circle[][] highlights = new Circle[8][8];
     private ChessBoard chessBoard;
@@ -34,6 +39,16 @@ public class ChessGameController {
         this.gallery = gallery;
         setChessBoard(new ChessBoard());
         liveGame = new LiveGame(time, chessBoard.getPlayer(Color.WHITE), chessBoard.getPlayer(Color.BLACK));
+
+        // Timeline to update UI labels
+        Timeline clockUpdater = new Timeline(
+                new KeyFrame(Duration.seconds(0.1), e -> {
+                    whiteClockLabel.setText("White Time -> " + liveGame.whiteTimeLeft());
+                    blackClockLabel.setText("Black Time -> " + liveGame.blackTimeLeft());
+                })
+        );
+        clockUpdater.setCycleCount(Animation.INDEFINITE);
+        clockUpdater.play();
     }
 
     // Sets current chessboard and updates UI
@@ -86,6 +101,7 @@ public class ChessGameController {
             movingPiece = new NullPiece(new Position(-1, -1));
 
             System.out.println("MOVED");
+            liveGame.switchTurn();
         }
 
         // Select a piece and highlight moves
