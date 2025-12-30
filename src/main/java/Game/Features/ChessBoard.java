@@ -158,14 +158,39 @@ public class ChessBoard {
         }
 
         // Recalculate allTargets after each successful move
-        whitePlayer.calcAllTargets();
-        blackPlayer.calcAllTargets();
+
+        /*
         System.out.println("*SUCCESSFUL MOVE*");
         System.out.println("Black targets: " + blackPlayer.getAllTargets());
         System.out.println("White targets: " + whitePlayer.getAllTargets());
         System.out.println("All black pieces: " + blackPlayer.getTeam().toString());
         System.out.println("All white pieces: " + whitePlayer.getTeam().toString());
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+         */
+    }
+
+    public boolean inCheckAfterMove(Piece piece, Position to) {
+        Color color = piece.getColor();
+        Position from = piece.getPosition();
+        Piece capturedPiece = getPieceAt(to);
+
+        boolean inCheckAfterMove = false;
+
+        // Make hypothetical moves
+        setPieceAt(from, new NullPiece(from));
+        setPieceAt(to, piece);
+        piece.setPosition(to);
+
+        // Check if king is in check
+        if (getPlayer(color).getKing().isInCheck()) {
+             inCheckAfterMove = true;
+        }
+
+        // Rollback?
+        movePiece(piece, from);
+        movePiece(capturedPiece, to);
+
+        return inCheckAfterMove;
     }
 
     public void setStartingPlayers() {

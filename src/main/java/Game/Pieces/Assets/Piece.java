@@ -28,6 +28,9 @@ public interface Piece {
     // Returns a set of valid moves from given position
     public List<Position> getValidMoves();
 
+    // Returns true if the piece targets or attacks a given position
+    public boolean targets(Position position);
+
     // Returns false if Piece is NullPiece, otherwise true
     public boolean exists();
 

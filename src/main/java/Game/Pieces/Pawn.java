@@ -2,6 +2,7 @@ package Game.Pieces;
 import Game.Features.*;
 import Game.Logic.MoveLogic;
 import Game.Logic.PieceLogic;
+import Game.Logic.TargetLogic;
 import Game.Pieces.Assets.Color;
 import Game.Pieces.Assets.Piece;
 import Game.Pieces.Assets.PieceType;
@@ -54,5 +55,9 @@ public class Pawn implements Piece {
     public List<Position> getValidMoves() {
         MoveLogic moveLogic = new MoveLogic();
         return moveLogic.pawnMoveSet(this);
+    }
+
+    public boolean targets(Position position) {
+        return TargetLogic.getTargetsForPiece(this).contains(position);
     }
 }

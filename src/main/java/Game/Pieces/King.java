@@ -1,9 +1,9 @@
 package Game.Pieces;
 import Game.Features.*;
 import Game.Live.Player;
-import Game.Live.Team;
 import Game.Logic.MoveLogic;
 import Game.Logic.PieceLogic;
+import Game.Logic.TargetLogic;
 import Game.Pieces.Assets.Color;
 import Game.Pieces.Assets.Piece;
 import Game.Pieces.Assets.PieceType;
@@ -59,17 +59,19 @@ public class King implements Piece {
         int[] dy = { -1,  0, 1, -1, 1, -1,  0,  1 };
         List<Position> validMoves = new ArrayList<>();
 
-        HashSet<Position> targetedPositions = getOppositePlayer().getAllTargets();
-
         MoveLogic moveLogic = new MoveLogic();
         for (int i = 0; i < 8; i++) {
             Position newPos = new Position(position.getRow() + dx[i], position.getColumn() + dy[i]);
-            if (moveLogic.isValidMove(this, newPos) && !moveLogic.isTargeted(this, newPos)) {
+            if (moveLogic.isValidMove(this, newPos) && !TargetLogic.isTargeted(board, newPos, color)) {
                 validMoves.add(newPos);
             }
         }
 
         return validMoves;
+    }
+
+    public boolean targets(Position position) {
+        return TargetLogic.getTargetsForPiece(this).contains(position);
     }
 
     // Return the opposing player on current game
@@ -82,7 +84,6 @@ public class King implements Piece {
 
     // Return true if king is currently in check
     public boolean isInCheck() {
-        Player opponent = getOppositePlayer();
-        return opponent.targets(position);
+        return TargetLogic.isTargeted(board, position, color);
     }
 }

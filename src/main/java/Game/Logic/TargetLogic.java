@@ -1,18 +1,21 @@
 package Game.Logic;
 
 import Game.Features.ChessBoard;
+import Game.Live.Player;
 import Game.Pieces.Assets.Color;
 import Game.Pieces.Assets.PieceType;
 import Game.Features.Position;
 import Game.Pieces.Assets.Piece;
+import Game.Pieces.King;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class TargetLogic {
 
     // Return all squares that a piece can target (move to, capture, or recapture)
-    public List<Position> getTargetsForPiece(Piece piece) {
+    public static List<Position> getTargetsForPiece(Piece piece) {
         List<Position> targets = new ArrayList<>();
         Position start = piece.getPosition();
         ChessBoard board = piece.getBoard();
@@ -100,8 +103,25 @@ public class TargetLogic {
         }
     }
 
+    public static boolean isTargeted(ChessBoard board, Position position, Color defender) {
+        Color attackerColor = PieceLogic.getOppositeColor(defender);
+
+        for (int r = 0; r < 8; r++) {
+            for (int c = 0; c < 8; c++) {
+                Piece piece = board.getPieceAt(new Position(r, c));
+
+                if (!piece.exists() || piece.getColor() != attackerColor) continue;
+
+                if (piece.targets(position)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     // Helper method for Rook, Bishop, Queen
-    public List<Position> slidingTargets(Piece piece, int[][] directions) {
+    public static List<Position> slidingTargets(Piece piece, int[][] directions) {
         List<Position> targets = new ArrayList<>();
 
         ChessBoard board = piece.getBoard();

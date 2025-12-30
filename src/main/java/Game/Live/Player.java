@@ -1,27 +1,24 @@
 package Game.Live;
 
-import Game.Features.Position;
 import Game.Pieces.Assets.Color;
 import Game.Pieces.Assets.Piece;
+import Game.Pieces.Assets.PieceType;
 import Game.Pieces.King;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Player {
     private final ChessClock clock;
-    private Team team;
     private Color color;
+    private HashSet<Piece> pieces;
 
     public Player(Color color, Duration initialTime) {
         this.color = color;
-        this.team = new Team();
         this.clock = new ChessClock(initialTime);
+        this.pieces = new HashSet<>();
     }
-
-    // Getters and setters for team
-    public Team getTeam() {return team;}
-    public void setTeam(Team team) {this.team = team;}
 
     // Getter for Clock
     public ChessClock getClock() {return clock;}
@@ -31,16 +28,35 @@ public class Player {
     public void stopTicking() {clock.stopTicking();}
 
     // Access team via player
-    public void addPiece(Piece piece) {team.add(piece);}
-    public void removePiece(Piece piece) {team.remove(piece);}
-    public boolean targets(Position position) {return team.targets(position);}
-    public HashSet<Position> getAllTargets() {return team.getAllTargets();}
-    public void calcAllTargets() {team.calcAllTargets();}
-    public King getKing() {return team.getKing();}
+    public void addPiece(Piece piece) {pieces.add(piece);}
+    public void removePiece(Piece piece) {pieces.remove(piece);}
+    public HashSet<Piece> getPieces() {return pieces;}
+
+    // Get color
+    public Color getColor() {return color;}
+
+    // Return the King
+    public King getKing() {
+        for (Piece piece : pieces) {
+            if (piece.getType().equals(PieceType.KING)) {
+                return (King) piece;
+            }
+        }
+        throw new IllegalArgumentException("King not found in pieces: " + pieces.toString());
+    }
+
+    // Return a string of all pieces
+    public String toString() {
+        ArrayList<String> parts = new ArrayList<>();
+        for (Piece piece : pieces) {
+            parts.add("{" + piece.getType().toString() + " @ " + piece.getPosition().toString() + "} ");
+        }
+        return parts.toString();
+    }
 
     // Return true if player is currently checkmated
     public boolean isCheckmated() {
-        return team.getKing().getValidMoves().isEmpty() && team.getKing().isInCheck();
+        return getKing().getValidMoves().isEmpty() && getKing().isInCheck();
 
         /*
         Todo: well what if a king has no valid moves but it has a piece that can block?

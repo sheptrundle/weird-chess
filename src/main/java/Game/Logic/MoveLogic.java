@@ -30,17 +30,9 @@ public class MoveLogic {
         return false;
     }
 
-    // Return true if a move to a new position is targeted by the other team
-    public boolean isTargeted(Piece piece, Position destination) {
-        ChessBoard board = piece.getBoard();
-        Player otherPlayer = board.getPlayer(piece.getOppositeColor());
-        return otherPlayer.targets(destination);
-    }
-
     // Return all valid moves for a Knight at a given position on a given board
     public List<Position> knightMoveSet(Piece piece) {
         Position position = piece.getPosition();
-        ChessBoard board = piece.getBoard();
 
         int[] dx = { 1,  2,  2,  1, -1, -2, -2, -1 };
         int[] dy = { 2,  1, -1, -2, -2, -1,  1,  2 };
