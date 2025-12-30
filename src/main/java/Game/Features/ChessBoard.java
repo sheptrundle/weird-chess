@@ -182,6 +182,9 @@ public class ChessBoard {
          */
     }
 
+    // Simulates a move, sees if the moving team is in check after it, then restores board
+    // Todo: use this method when determining moves while in check to go through every possible move available and only allow
+    //  player to make said move if this method returns false.
     public boolean inCheckAfterMove(Piece piece, Position to) {
         Position from = piece.getPosition();
         ChessBoard board = piece.getBoard();
