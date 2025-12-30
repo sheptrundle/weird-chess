@@ -3,6 +3,7 @@ package Controllers;
 import Game.Features.ChessBoard;
 import Game.Live.LiveGame;
 import Game.Pieces.Assets.Color;
+import Game.Pieces.King;
 import UI.CircleBuilder;
 import UI.Gallery;
 import Game.Pieces.NullPiece;
@@ -181,9 +182,10 @@ public class ChessGameController {
 
         // Check both kings
         for (Color color : Color.values()) {
-            if (chessBoard.getPlayer(color).getKing().isInCheck()) {
+            King king = chessBoard.getKing(color);
+            if (king.isInCheck()) {
 
-                Position kingPos = chessBoard.getPlayer(color).getKing().getPosition();
+                Position kingPos = king.getPosition();
                 StackPane square = squares[kingPos.getRow()][kingPos.getColumn()];
 
                 checkHighlight = CircleBuilder.buildCircle("red");

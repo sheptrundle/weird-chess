@@ -56,6 +56,19 @@ public class ChessBoard {
         return flipped;
     }
 
+    // Find and return the King for a given color
+    public King getKing(Color color) {
+        for (int r = 0; r < 8; r++) {
+            for (int c = 0; c < 8; c++) {
+                Piece p = getPieceAt(new Position(r, c));
+                if (p instanceof King && p.getColor() == color) {
+                    return (King) p;
+                }
+            }
+        }
+        throw new IllegalStateException("King not found for " + color);
+    }
+
     // Initialize a new piece and place it in a position
     public void createAndPlace(Color color, String pieceName, int row, int col) throws IllegalArgumentException{
         Piece piece;
@@ -170,27 +183,26 @@ public class ChessBoard {
     }
 
     public boolean inCheckAfterMove(Piece piece, Position to) {
-        Color color = piece.getColor();
         Position from = piece.getPosition();
-        Piece capturedPiece = getPieceAt(to);
+        ChessBoard board = piece.getBoard();
 
-        boolean inCheckAfterMove = false;
+        // Save captured piece (even if NullPiece)
+        Piece captured = board.getPieceAt(to);
 
-        // Make hypothetical moves
-        setPieceAt(from, new NullPiece(from));
-        setPieceAt(to, piece);
+        // Make hypothetical move
+        board.setPieceAt(from, new NullPiece(from));
+        board.setPieceAt(to, piece);
         piece.setPosition(to);
 
-        // Check if king is in check
-        if (getPlayer(color).getKing().isInCheck()) {
-             inCheckAfterMove = true;
-        }
+        // Check king safety
+        boolean inCheck = board.getKing(piece.getColor()).isInCheck();
 
-        // Rollback?
-        movePiece(piece, from);
-        movePiece(capturedPiece, to);
+        // Rollback
+        piece.setPosition(from);
+        board.setPieceAt(from, piece);
+        board.setPieceAt(to, captured);
 
-        return inCheckAfterMove;
+        return inCheck;
     }
 
     public void setStartingPlayers() {
