@@ -6,7 +6,7 @@
     I think most of these bugs are only issues from black pov???
 
 —Fix bug where Pawn cant capture diagonally to save king from check
-        Maybe dont need any Pawnflip logic if we use a double-sided board?
+        Maybe don't need any Pawn-flip logic if we use a double-sided board?
         Pawn can also move forward when pinned
         Hypothetically both of these bugs can be solved by using a two-sided board. Will require a LOT of refactoring
 

@@ -6,11 +6,11 @@ import Game.Logic.PieceLogic;
 import Game.Pieces.Assets.Color;
 import Game.Pieces.Assets.Piece;
 
-/**
- * A wrapper around a single ChessBoard that allows
- * viewing and interacting with the board from either
- * White or Black POV without mutating the board.
- */
+/*
+A wrapper around a single ChessBoard that allows
+viewing and interacting with the board from either
+White or Black POV without mutating the board.
+*/
 public class TwoWayChessBoard {
 
     private final ChessBoard board;
@@ -30,14 +30,14 @@ public class TwoWayChessBoard {
 
     // Coordinate Mapping
 
-    // Convert a UI position to a model (board) position
+    // Convert a UI position to a board position
     public Position uiToBoard(Position uiPos) {
         if (currentPOV == Color.WHITE) {
             return uiPos;
         }
         return new Position(
-                7 - uiPos.getRow(),
-                7 - uiPos.getColumn()
+                7 - uiPos.getRow(),  // flip row
+                uiPos.getColumn()     // leave column
         );
     }
 
@@ -47,8 +47,8 @@ public class TwoWayChessBoard {
             return boardPos;
         }
         return new Position(
-                7 - boardPos.getRow(),
-                7 - boardPos.getColumn()
+                7 - boardPos.getRow(),  // flip row
+                boardPos.getColumn()     // leave column
         );
     }
 
