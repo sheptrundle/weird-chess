@@ -50,8 +50,4 @@ public class LiveUIBinder {
     public void start() {
         timeline.play();
     }
-
-    public void switchCurrentTurnLabel(LiveGame liveGame) {
-        endResultLabel.setText("Current Turn = " + PieceLogic.colorToString(liveGame.getCurrentTurn()));
-    }
 }

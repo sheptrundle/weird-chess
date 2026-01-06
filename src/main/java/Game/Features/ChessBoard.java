@@ -50,17 +50,6 @@ public class ChessBoard {
         };
     }
 
-    // Returns a flipped copy of the current board
-    public ChessBoard flipped() {
-        ChessBoard flipped = new ChessBoard(gallery, time);
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                flipped.board[row][col] = board[7 - row][col];
-            }
-        }
-        return flipped;
-    }
-
     // Find and return the King for a given color
     public King getKing(Color color) {
         for (int r = 0; r < 8; r++) {

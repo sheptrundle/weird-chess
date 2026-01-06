@@ -163,78 +163,54 @@ public class MoveLogic {
         return validMoves;
     }
 
-    // Return all valid moves for a Pawn at a given position on a given board
+    // Return all valid moves for a Pawn at a given position on the real board
     public List<Position> pawnMoveSet(Pawn pawn) {
-        Position position = pawn.getPosition();
+        Position pos = pawn.getPosition();
         ChessBoard board = pawn.getBoard();
+        Color color = pawn.getColor();
 
         List<Position> validMoves = new ArrayList<>();
-        ChessBoard useBoard;
-        Position usePos;
-        Pawn usePawn;
-        boolean needsFlip = false;
 
-        if (pawn.getColor() == Color.WHITE) {
-            useBoard = board;
-            usePos = position;
-            usePawn = pawn;
-        } else {
-            useBoard = board.flipped();
-            usePos = position.flipped();
-            usePawn = new Pawn(usePos, useBoard, pawn.getColor());
-            needsFlip = true;
-        }
+        int row = pos.getRow();
+        int col = pos.getColumn();
 
-        int row = usePos.getRow();
-        int col = usePos.getColumn();
+        // White moves up a row, black moves down a row
+        int forward = (color == Color.WHITE) ? 1 : -1;
 
         // Diagonal captures
         int[] dx = {-1, 1};
-        for (int d : dx) {
-            Position diag = new Position(row + 1, col + d);
+        for (int dCol : dx) {
+            Position diag = new Position(row + forward, col + dCol);
             if (!diag.isOnBoard()) continue;
 
-            Piece target = useBoard.getPieceAt(diag);
-            if (target.exists() && target.getColor() != pawn.getColor()) {
-                // First see if this piece results in a check. Not allowed if so
-                if (TargetLogic.inCheckAfterMove(usePawn, diag)) {
-                    continue;
+            Piece target = board.getPieceAt(diag);
+            if (target.exists() && target.getColor() != color) {
+                // Check if this move leaves king in check
+                if (!TargetLogic.inCheckAfterMove(pawn, diag)) {
+                    validMoves.add(diag);
                 }
-
-                validMoves.add(diag);
             }
         }
 
         // Forward moves
-        for (int i = 1; i <= 2; i++) {
-            Position to = new Position(row + i, col);
-            if (!to.isOnBoard()) break;
+        Position oneStep = new Position(row + forward, col);
+        if (oneStep.isOnBoard() && !board.getPieceAt(oneStep).exists()) {
+            if (!TargetLogic.inCheckAfterMove(pawn, oneStep)) {
+                validMoves.add(oneStep);
 
-            if (!useBoard.getPieceAt(to).exists()) {
-                // First see if this piece results in a check. Not allowed if so
-                if (TargetLogic.inCheckAfterMove(usePawn, to)) {
-                    continue;
+                // Two-step forward if pawn hasn't moved yet
+                Position twoStep = new Position(row + 2 * forward, col);
+                if (!pawn.hasMoved() && twoStep.isOnBoard() && !board.getPieceAt(twoStep).exists()) {
+                    if (!TargetLogic.inCheckAfterMove(pawn, twoStep)) {
+                        validMoves.add(twoStep);
+                    }
                 }
-
-                validMoves.add(to);
-            } else {
-                break;
-            }
-            if (pawn.hasMoved()) {
-                break;
             }
         }
 
-        // Flip back if needed (black)
-        if (needsFlip) {
-            List<Position> flipped = new ArrayList<>();
-            for (Position p : validMoves) {
-                flipped.add(p.flipped());
-            }
-            return flipped;
-        }
         return validMoves;
     }
+
 
     public boolean pawnPromotion(Piece piece, Position to) {
         return piece.getType() == PieceType.PAWN && (to.getRow() == 7 || to.getRow() == 0);
