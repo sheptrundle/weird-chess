@@ -15,6 +15,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -30,6 +31,8 @@ public class ChessGameController {
     @FXML Label whiteClockLabel = new Label();
     @FXML Label blackClockLabel = new Label();
     @FXML Label endResultLabel = new Label();
+    @FXML Button flipPovButton = new Button();
+
     private StackPane[][] squares = new StackPane[8][8];
     private Circle[][] highlights = new Circle[8][8];
     private ChessBoard chessBoard;
@@ -156,6 +159,11 @@ public class ChessGameController {
         }
 
         // Update UI at the end of every click
+        updateUI();
+    }
+
+    public void handleFlipPOV() {
+        twoWayBoard.switchPOV();
         updateUI();
     }
 

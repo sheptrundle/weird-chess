@@ -30,10 +30,19 @@
 
         <Pane prefHeight="308"/>
 
-        <Label fx:id="endResultLabel"
-               text="Current Turn = White"
-               textFill="white"
-               style="-fx-font-size: 20; -fx-font-weight: bold;" />
+        <VBox spacing="10" alignment="CENTER">
+            <Label fx:id="endResultLabel"
+                   text="Current Turn = White"
+                   textFill="white"
+                   style="-fx-font-size: 20; -fx-font-weight: bold;" />
+
+            <Button fx:id="flipPovButton"
+                    text="Flip POV"
+                    prefWidth="80"
+                    prefHeight="40"
+                    onAction="#handleFlipPOV"
+                    style="-fx-background-color: white; -fx-text-fill: black; -fx-font-size: 16;"/>
+        </VBox>
 
         <Pane VBox.vgrow="ALWAYS"/>
 
