@@ -6,6 +6,7 @@ import Game.Live.BoardInteractionHandler;
 import Game.Pieces.Assets.Color;
 import Game.Pieces.Standard.King;
 import Game.Pieces.Assets.Piece;
+import UI.Helpers.SquareSetter;
 import UI.Images.CircleBuilder;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -43,9 +44,7 @@ public class BoardRenderer {
                 StackPane square = new StackPane();
                 square.setPrefSize(100, 100);
 
-                boolean isLight = (row + col) % 2 == 0;
-                if (isLight) {square.setStyle("-fx-background-color: #f0d9b5");}
-                else {square.setStyle("-fx-background-color: #b58863");}
+                SquareSetter.setSquare(square, r, c);
 
                 squares[row][col] = square;
                 square.setOnMouseClicked(e -> handler.handleClick(r, c));
@@ -88,9 +87,7 @@ public class BoardRenderer {
         int col = uiPos.getColumn();
         StackPane square = squares[row][col];
 
-        boolean isLight = (row + col) % 2 == 0;
-        if (isLight) {square.setStyle("-fx-background-color: #f0d9b5");}
-        else {square.setStyle("-fx-background-color: #b58863");}
+        SquareSetter.setSquare(square, row, col);
     }
 
     // Highlight all valid moves for a piece
