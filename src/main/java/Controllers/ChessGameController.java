@@ -21,7 +21,6 @@ public class ChessGameController {
     @FXML private Label whiteClockLabel;
     @FXML private Label blackClockLabel;
     @FXML private Label endResultLabel;
-    @FXML private Button flipPovButton;
 
     private BoardRenderer boardRenderer;
     private BoardInteractionHandler interactionHandler;
