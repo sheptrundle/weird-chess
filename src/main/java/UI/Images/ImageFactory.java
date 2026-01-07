@@ -42,6 +42,8 @@ public class ImageFactory {
             return "og";
         } else if (gallery == Gallery.PIXEL) {
             return "pixel";
+        } else if (gallery == Gallery.GOOGLE) {
+            return "google";
         } else {
             throw new IllegalArgumentException(gallery + " is not a valid gallery");
         }
