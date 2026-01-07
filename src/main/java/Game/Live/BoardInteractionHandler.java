@@ -50,7 +50,7 @@ public class BoardInteractionHandler {
             liveGame.switchTurn();
             // Flip board and update current turn
             twoWayBoard.setPOV(liveGame.getCurrentTurn());
-            gameCoordinator.updateTurnLabel();
+            gameCoordinator.updateLabels();
 
             // See if checkmate after a successful move
             liveGame.checkCheckmates();

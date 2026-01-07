@@ -7,6 +7,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Text?>
 <HBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="Controllers.ChessGameController"
       >
@@ -23,6 +25,7 @@
           style="-fx-background-color: black;"
           spacing="20">
 
+        <!-- Black Clock -->
         <Label fx:id="blackClockLabel"
                text="Black Time"
                textFill="white"
@@ -30,18 +33,30 @@
 
         <Pane prefHeight="308"/>
 
+        <!-- Center Space -->
         <VBox spacing="10" alignment="CENTER">
+            <!-- End Result and Current Turn -->
             <Label fx:id="endResultLabel"
                    text="Current Turn = White"
                    textFill="white"
                    style="-fx-font-size: 20; -fx-font-weight: bold;" />
 
+            <!-- Flip POV Button -->
             <Button fx:id="flipPovButton"
                     text="Flip POV"
                     prefWidth="80"
                     prefHeight="40"
                     onAction="#handleFlipPOV"
                     style="-fx-background-color: white; -fx-text-fill: black; -fx-font-size: 16;"/>
+
+            <!-- Current POV Orientation -->
+            <TextFlow fx:id="orientationTextFlow" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+                <Text fx:id="orientationPrefix" text="Current Orientation is " fill="white"
+                      style="-fx-font-size: 20; -fx-font-weight: bold;" />
+                <Text fx:id="orientationStatus" text="Correct" fill="limegreen"
+                      style="-fx-font-size: 20; -fx-font-weight: bold;" />
+            </TextFlow>
+
         </VBox>
 
         <Pane VBox.vgrow="ALWAYS"/>

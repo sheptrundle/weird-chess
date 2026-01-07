@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class ChessGameController {
@@ -21,6 +22,7 @@ public class ChessGameController {
     @FXML private Label whiteClockLabel;
     @FXML private Label blackClockLabel;
     @FXML private Label endResultLabel;
+    @FXML private Text orientationStatus;
 
     private BoardRenderer boardRenderer;
     private BoardInteractionHandler interactionHandler;
@@ -34,7 +36,7 @@ public class ChessGameController {
         LiveGame liveGame = new LiveGame(board);
 
         boardRenderer = new BoardRenderer(boardGrid, board, twoWayBoard);
-        gameCoordinator = new GameCoordinator(twoWayBoard, liveGame, boardRenderer, endResultLabel);
+        gameCoordinator = new GameCoordinator(twoWayBoard, liveGame, boardRenderer, endResultLabel, orientationStatus);
         interactionHandler = new BoardInteractionHandler(board, twoWayBoard, liveGame, boardRenderer, gameCoordinator);
         liveUIBinder = new LiveUIBinder(liveGame, time, whiteClockLabel, blackClockLabel, endResultLabel);
 
